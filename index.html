@@ -247,7 +247,7 @@
         Title: Mobile Service Experience Survey <br>
 
         Purpose of this research <br>
-        This survey is part of a thesis study at Jamhuriya University. The goal is to understand common problems users experience with mobile operators – such as network, internet, mobile money, billing, or SIM card issues – and to train a computer system to automatically recognise and classify these complaints from text..
+        This survey is part of a thesis study at Jamhuriya University. The goal is to understand common problems users experience with mobile operators – such as network, internet, mobile money, billing, or SIM card issues – and to train a computer system to automatically recognise and classify these complaints from text.
       </div>
 
       <form id="surveyForm">
@@ -382,11 +382,12 @@
   </main>
 
   <script>
-    const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzIHFbcw-OMGz41iCJ2SGNrRDB7xDHZ-cDhaui7DtS3My3Ft94_v4LJtpfQN5wTTpqevQ/exec";
+    const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyJ86qIs-Kz8QMS4Eu_HDcumEQ-9zJYg8vHXA10biVBAbsfkfLBnSLkg1xuaRMSd055-w/exec";
     const ADMIN_PASSCODE = "change-this-passcode";
     const STORAGE_KEY = "somali_telecom_complaint_dataset_responses";
 
-    const companyOptions = ["Hormuud", "Somtel", "Telesom", "Golis", "Somnet", "Amtel"];
+    // Added "Other" explicitly to dynamic configurations
+    const companyOptions = ["Hormuud", "Somtel", "Telesom", "Golis", "Somnet", "Amtel", "Other"];
 
     const categoryFields = [
       { field: "networkSentence", companyField: "networkCompany", complaintClass: "Network" },
@@ -396,7 +397,8 @@
       { field: "simCardSentence", companyField: "simCardCompany", complaintClass: "SIM_Card_Issue" }
     ];
 
-    const form = document.getElementById("surveyForm");`
+    // STRAY BACKTICK FIXED BELOW
+    const form = document.getElementById("surveyForm");
     const statusBox = document.getElementById("status");
     const respondentSection = document.getElementById("respondentSection");
     const adminLoginSection = document.getElementById("adminLoginSection");
