@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Somali Telecom Complaint Dataset Survey</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #d1d5db;
+      --success: #15803d;
+      --danger: #b91c1c;
+      --warning-bg: #fff7ed;
+      --warning-border: #fed7aa;
+      --warning-text: #9a3412;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 32px 16px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1d4ed8, #0f766e);
+      color: white;
+      padding: 36px 28px;
+      border-radius: 22px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      margin: 0;
+      font-size: 16px;
+      opacity: 0.95;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 26px;
+      margin-bottom: 20px;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+      border: 1px solid rgba(209, 213, 219, 0.65);
+    }
+
+    h2 { margin-top: 0; font-size: 22px; color: #111827; }
+    h3 { margin: 0 0 6px; font-size: 18px; color: #111827; }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin: 18px 0 8px;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 15px;
+      font-family: inherit;
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 105px;
+      resize: vertical;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .category-box {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      margin-top: 16px;
+      background: #f9fafb;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .warning {
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-border);
+      color: var(--warning-text);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 18px;
+    }
+
+    .checkbox-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-top: 18px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f9fafb;
+    }
+
+    .checkbox-row input {
+      width: auto;
+      margin-top: 6px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    button:hover { transform: translateY(-1px); }
+
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-secondary { background: #e5e7eb; color: #111827; }
+    .btn-danger { background: #dc2626; color: white; }
+
+    .status {
+      display: none;
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    .status.success {
+      display: block;
+      background: #dcfce7;
+      color: var(--success);
+      border: 1px solid #86efac;
+    }
+
+    .status.error {
+      display: block;
+      background: #fee2e2;
+      color: var(--danger);
+      border: 1px solid #fecaca;
+    }
+
+    .admin-only { display: none; }
+    .admin-only.visible { display: block; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th { background: #f3f4f6; }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 22px;
+    }
+
+    @media (max-width: 720px) {
+      .grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 25px; }
+      .card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <h1>Somali Telecom Complaint Dataset Survey</h1>
+      <p>
+        Ka-qaybgale waxaan ka codsaneynaa inaa qorto 5 jumladood oo cabasho ah: hal cabasho oo Network ah, hal Internet ah, hal Mobile Money ah, hal Billing ah, iyo hal SIM Card Issue ah.
+      </p>
+    </section>
+
+    <section class="card" id="respondentSection">
+      <h2>Macluumaadka Ka-qaybgalaha</h2>
+
+      <div class="warning">
+        Title: Mobile Service Experience Survey <br>
+
+        Purpose of this research <br>
+        This survey is part of a thesis study at Jamhuriya University. The goal is to understand common problems users experience with mobile operators – such as network, internet, mobile money, billing, or SIM card issues – and to train a computer system to automatically recognise and classify these complaints from text..
+      </div>
+
+      <form id="surveyForm">
+        <div class="grid">
+          <div>
+            <label for="ageGroup">Da'da / Age Group</label>
+            <select id="ageGroup" name="ageGroup" required>
+              <option value="">Dooro / Select</option>
+              <option value="18-24">18-24</option>
+              <option value="25-34">25-34</option>
+              <option value="35-44">35-44</option>
+              <option value="45+">45+</option>
+              <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="region">Gobolka / Region</label>
+            <select id="region" name="region" required>
+              <option value="">Dooro Gobolka / Select Region</option>
+              <option value="Banaadir">Banaadir</option>
+              <option value="Awdal">Awdal</option>
+              <option value="Bakool">Bakool</option>
+              <option value="Bay">Bay</option>
+              <option value="Bari">Bari</option>
+              <option value="Galgaduud">Galgaduud</option>
+              <option value="Gedo">Gedo</option>
+              <option value="Hiiraan">Hiiraan</option>
+              <option value="Jubbada Dhexe">Jubbada Dhexe</option>
+              <option value="Jubbada Hoose">Jubbada Hoose</option>
+              <option value="Mudug">Mudug</option>
+              <option value="Nugaal">Nugaal</option>
+              <option value="Sanaag">Sanaag</option>
+              <option value="Shabeellaha Dhexe">Shabeellaha Dhexe</option>
+              <option value="Shabeellaha Hoose">Shabeellaha Hoose</option>
+              <option value="Sool">Sool</option>
+              <option value="Togdheer">Togdheer</option>
+              <option value="Waqooyi Galbeed">Waqooyi Galbeed</option>
+              <option value="Other">Other / Kale</option>
+            </select>
+          </div>
+        </div>
+
+        <p class="hint">Hoos ka dooro shirkadda telecom-ka ee la xiriirta cabasho kasta.</p>
+
+        <div class="category-box">
+          <span class="badge">Required</span>
+          <h3>1. Network / Shabakad</h3>
+          <p class="hint">Cabasho ku saabsan signal la'aan, wicitaan go'a, coverage liidata, ama SMS dhibaato leh.</p>
+          <label for="networkCompany">Shirkadda Telecom-ka</label>
+          <select id="networkCompany" name="networkCompany" required></select>
+          <label for="networkSentence">Jumlad cabasho ah</label>
+          <textarea id="networkSentence" name="networkSentence" required placeholder="Tusaale: Shabakadda xaafaddeenna mar walba way go'daa."></textarea>
+        </div>
+
+        <div class="category-box">
+          <span class="badge">Required</span>
+          <h3>2. Internet</h3>
+          <p class="hint">Cabasho ku saabsan internet gaabis ah, data aan shaqayn, bundle dhibaato leh, ama 3G/4G/5G cilad.</p>
+          <label for="internetCompany">Shirkadda Telecom-ka</label>
+          <select id="internetCompany" name="internetCompany" required></select>
+          <label for="internetSentence">Jumlad cabasho ah</label>
+          <textarea id="internetSentence" name="internetSentence" required placeholder="Tusaale: Internet-ka aad buu u gaabiyaa habeenkii."></textarea>
+        </div>
+
+        <div class="category-box">
+          <span class="badge">Required</span>
+          <h3>3. Mobile Money</h3>
+          <p class="hint">Cabasho ku saabsan lacag dirid, lacag helid, transaction fashilmay, ama mobile wallet cilad.</p>
+          <label for="mobileMoneyCompany">Shirkadda Telecom-ka</label>
+          <select id="mobileMoneyCompany" name="mobileMoneyCompany" required></select>
+          <label for="mobileMoneySentence">Jumlad cabasho ah</label>
+          <textarea id="mobileMoneySentence" name="mobileMoneySentence" required placeholder="Tusaale: Lacagtii aan diray lama helin."></textarea>
+        </div>
+
+        <div class="category-box">
+          <span class="badge">Required</span>
+          <h3>4. Billing / Lacag jarid</h3>
+          <p class="hint">Cabasho ku saabsan lacag si khaldan loo jaray, balance lumay, fee aan la fahmin, ama xirmo aan furmin.</p>
+          <label for="billingCompany">Shirkadda Telecom-ka</label>
+          <select id="billingCompany" name="billingCompany" required></select>
+          <label for="billingSentence">Jumlad cabasho ah</label>
+          <textarea id="billingSentence" name="billingSentence" required placeholder="Tusaale: Balance-kayga waa la iga jaray anigoon adeeg isticmaalin."></textarea>
+        </div>
+
+        <div class="category-box">
+          <span class="badge">Required</span>
+          <h3>5. SIM Card Issue</h3>
+          <p class="hint">Cabasho ku saabsan SIM xiran, SIM aan shaqayn, diiwaangelin, replacement, activation, PIN ama PUK.</p>
+          <label for="simCardCompany">Shirkadda Telecom-ka</label>
+          <select id="simCardCompany" name="simCardCompany" required></select>
+          <label for="simCardSentence">Jumlad cabasho ah</label>
+          <textarea id="simCardSentence" name="simCardSentence" required placeholder="Tusaale: SIM-kayga waa la iga xiray mana garanayo sababta."></textarea>
+        </div>
+
+        <div class="warning">
+          Your data will be used for academic research purposes only.
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn-primary">Submit Complaint Sentences</button>
+        </div>
+
+        <div id="status" class="status"></div>
+      </form>
+    </section>
+
+    <section class="card admin-only" id="adminLoginSection">
+      <h2>Admin Access</h2>
+      <p class="hint">This section is for the researcher only. Respondents do not see dataset records or download controls.</p>
+      <label for="adminPasscode">Admin Passcode</label>
+      <input id="adminPasscode" type="password" placeholder="Enter admin passcode" />
+      <div class="actions">
+        <button type="button" class="btn-primary" id="adminLoginBtn">Open Admin Panel</button>
+      </div>
+      <div id="adminLoginStatus" class="status"></div>
+    </section>
+
+    <section class="card admin-only" id="adminPanelSection">
+      <h2>Admin Dashboard</h2>
+      <p class="hint">Use Google Sheets as the main dataset store for real online collection. Local CSV is only a backup from this browser.</p>
+      <p id="datasetCount" class="hint">Local backup rows: 0</p>
+      <div class="actions">
+        <button type="button" class="btn-primary" id="downloadCsvBtn">Download Local Backup CSV</button>
+        <button type="button" class="btn-secondary" id="showPreviewBtn">Show Local Preview</button>
+        <button type="button" class="btn-danger" id="clearBackupBtn">Clear Local Backup</button>
+      </div>
+      <div id="previewBox"></div>
+    </section>
+
+    <p class="footer">Somali Telecom Complaint Dataset Collection Page — Academic Research Use Only</p>
+  </main>
+
+  <script>
+    const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzIHFbcw-OMGz41iCJ2SGNrRDB7xDHZ-cDhaui7DtS3My3Ft94_v4LJtpfQN5wTTpqevQ/exec";
+    const ADMIN_PASSCODE = "change-this-passcode";
+    const STORAGE_KEY = "somali_telecom_complaint_dataset_responses";
+
+    const companyOptions = ["Hormuud", "Somtel", "Telesom", "Golis", "Somnet", "Amtel"];
+
+    const categoryFields = [
+      { field: "networkSentence", companyField: "networkCompany", complaintClass: "Network" },
+      { field: "internetSentence", companyField: "internetCompany", complaintClass: "Internet" },
+      { field: "mobileMoneySentence", companyField: "mobileMoneyCompany", complaintClass: "Mobile_Money" },
+      { field: "billingSentence", companyField: "billingCompany", complaintClass: "Billing" },
+      { field: "simCardSentence", companyField: "simCardCompany", complaintClass: "SIM_Card_Issue" }
+    ];
+
+    const form = document.getElementById("surveyForm");`
+    const statusBox = document.getElementById("status");
+    const respondentSection = document.getElementById("respondentSection");
+    const adminLoginSection = document.getElementById("adminLoginSection");
+    const adminPanelSection = document.getElementById("adminPanelSection");
+    const adminPasscode = document.getElementById("adminPasscode");
+    const adminLoginBtn = document.getElementById("adminLoginBtn");
+    const adminLoginStatus = document.getElementById("adminLoginStatus");
+    const downloadCsvBtn = document.getElementById("downloadCsvBtn");
+    const showPreviewBtn = document.getElementById("showPreviewBtn");
+    const clearBackupBtn = document.getElementById("clearBackupBtn");
+    const datasetCount = document.getElementById("datasetCount");
+    const previewBox = document.getElementById("previewBox");
+
+    populateCompanyDropdowns();
+    initializeAdminMode();
+
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+      hideStatus(statusBox);
+
+      const formData = new FormData(form);
+      const respondentId = createRespondentId();
+      const baseInfo = {
+        respondentId: respondentId,
+        timestamp: new Date().toISOString(),
+        ageGroup: sanitizeText(formData.get("ageGroup")),
+        region: sanitizeText(formData.get("region")),
+        consent: "Research_Only_Notice_Shown"
+      };
+
+      const records = categoryFields.map(function(item) {
+        return {
+          respondentId: baseInfo.respondentId,
+          timestamp: baseInfo.timestamp,
+          ageGroup: baseInfo.ageGroup,
+          region: baseInfo.region,
+          sentence: sanitizeText(formData.get(item.field)),
+          isComplaint: "1",
+          complaintClass: item.complaintClass,
+          company: sanitizeText(formData.get(item.companyField)),
+          consent: baseInfo.consent
+        };
+      });
+
+      const validationError = validateRecords(records, baseInfo);
+      if (validationError) {
+        showStatus(statusBox, validationError, "error");
+        return;
+      }
+
+      saveLocalRecords(records);
+
+      if (GOOGLE_APPS_SCRIPT_URL.trim() !== "") {
+        try {
+          for (const record of records) {
+            await fetch(GOOGLE_APPS_SCRIPT_URL, {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(record)
+            });
+          }
+          showStatus(statusBox, "Mahadsanid! 5-ta jumladood ee cabashada waa la gudbiyay.", "success");
+          form.reset();
+          populateCompanyDropdowns();
+        } catch (error) {
+          showStatus(statusBox, "Cilad ayaa dhacday. Fadlan mar kale isku day.", "error");
+        }
+      } else {
+        showStatus(statusBox, "Mahadsanid! Jawaabahaaga waa la qabtay.", "success");
+        form.reset();
+        populateCompanyDropdowns();
+      }
+    });
+
+    adminLoginBtn.addEventListener("click", function() {
+      if (adminPasscode.value !== ADMIN_PASSCODE) {
+        showStatus(adminLoginStatus, "Incorrect admin passcode.", "error");
+        return;
+      }
+      adminLoginSection.classList.remove("visible");
+      adminPanelSection.classList.add("visible");
+      updateDatasetCount();
+    });
+
+    downloadCsvBtn.addEventListener("click", function() {
+      const records = getLocalRecords();
+      if (records.length === 0) {
+        alert("No local backup rows are available in this browser.");
+        return;
+      }
+      const csv = convertToCSV(records);
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "somali_telecom_complaint_dataset.csv";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    });
+
+    showPreviewBtn.addEventListener("click", function() {
+      renderPreview();
+    });
+
+    clearBackupBtn.addEventListener("click", function() {
+      const confirmed = confirm("Delete the local backup from this browser only?");
+      if (!confirmed) return;
+      localStorage.removeItem(STORAGE_KEY);
+      updateDatasetCount();
+      previewBox.innerHTML = "";
+    });
+
+    function initializeAdminMode() {
+      const params = new URLSearchParams(window.location.search);
+      const isAdmin = params.get("admin") === "1";
+      if (isAdmin) {
+        respondentSection.style.display = "none";
+        adminLoginSection.classList.add("visible");
+      }
+    }
+
+    function populateCompanyDropdowns() {
+      categoryFields.forEach(function(item) {
+        const select = document.getElementById(item.companyField);
+        if (!select) return;
+        select.innerHTML = "";
+        const first = document.createElement("option");
+        first.value = "";
+        first.textContent = "Dooro Shirkadda / Select Company";
+        select.appendChild(first);
+        companyOptions.forEach(function(company) {
+          const option = document.createElement("option");
+          option.value = company;
+          option.textContent = company === "Other" ? "Other / Kale" : company;
+          select.appendChild(option);
+        });
+      });
+    }
+
+    function sanitizeText(value) {
+      if (!value) return "";
+      let cleaned = String(value).trim();
+      while (cleaned.includes("  ")) cleaned = cleaned.replaceAll("  ", " ");
+      return cleaned;
+    }
+
+    function validateRecords(records, baseInfo) {
+      if (!baseInfo.ageGroup) return "Please select age group.";
+      if (!baseInfo.region) return "Please select region.";
+
+      for (const record of records) {
+        if (!record.company) return "Please select telecom company for " + record.complaintClass + ".";
+        if (!record.sentence || record.sentence.length < 8) return "Please write a valid complaint sentence for " + record.complaintClass + ".";
+      }
+
+      const uniqueSentences = new Set(records.map(function(record) { return record.sentence.toLowerCase(); }));
+      if (uniqueSentences.size !== records.length) return "Please write different sentences for each category. Do not repeat the same complaint.";
+
+      return null;
+    }
+
+    function saveLocalRecords(records) {
+      const existingRecords = getLocalRecords();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(existingRecords.concat(records)));
+    }
+
+    function getLocalRecords() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+      catch (error) { return []; }
+    }
+
+    function convertToCSV(records) {
+      const headers = ["respondentId", "timestamp", "ageGroup", "region", "sentence", "isComplaint", "complaintClass", "company", "consent"];
+      const csvRows = [headers.join(",")];
+      records.forEach(function(record) {
+        const row = headers.map(function(header) {
+          const value = record[header] || "";
+          return String.fromCharCode(34) + String(value).split(String.fromCharCode(34)).join(String.fromCharCode(34) + String.fromCharCode(34)) + String.fromCharCode(34);
+        });
+        csvRows.push(row.join(","));
+      });
+      return csvRows.join(String.fromCharCode(10));
+    }
+
+    function renderPreview() {
+      const records = getLocalRecords();
+      updateDatasetCount();
+      if (records.length === 0) {
+        previewBox.innerHTML = "<p class='hint'>No local backup rows found.</p>";
+        return;
+      }
+      const latest = records.slice(-20).reverse();
+      let html = "<table><thead><tr><th>#</th><th>Region</th><th>Company</th><th>Class</th><th>Sentence</th></tr></thead><tbody>";
+      latest.forEach(function(record, index) {
+        html += "<tr><td>" + (records.length - index) + "</td><td>" + escapeHTML(record.region) + "</td><td>" + escapeHTML(record.company) + "</td><td>" + escapeHTML(record.complaintClass) + "</td><td>" + escapeHTML(record.sentence) + "</td></tr>";
+      });
+      html += "</tbody></table>";
+      previewBox.innerHTML = html;
+    }
+
+    function updateDatasetCount() {
+      datasetCount.textContent = "Local backup rows: " + getLocalRecords().length;
+    }
+
+    function createRespondentId() {
+      const randomPart = Math.random().toString(36).substring(2, 8).toUpperCase();
+      const timePart = Date.now().toString(36).toUpperCase();
+      return "R-" + timePart + "-" + randomPart;
+    }
+
+    function showStatus(element, message, type) {
+      element.textContent = message;
+      element.className = "status " + type;
+    }
+
+    function hideStatus(element) {
+      element.textContent = "";
+      element.className = "status";
+    }
+
+    function escapeHTML(value) {
+      return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll(String.fromCharCode(34), "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+  </script>
+</body>
+</html>
