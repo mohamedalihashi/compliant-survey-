@@ -175,6 +175,12 @@
     .btn-primary:hover { background: var(--primary-dark); }
     .btn-secondary { background: #e5e7eb; color: #111827; }
     .btn-danger { background: #dc2626; color: white; }
+    
+    button:disabled {
+      background: #a5b4fc !important;
+      cursor: not-allowed;
+      transform: none !important;
+    }
 
     .status {
       display: none;
@@ -189,6 +195,10 @@
       background: #dcfce7;
       color: var(--success);
       border: 1px solid #86efac;
+      font-size: 18px;
+      text-align: center;
+      padding: 30px 20px;
+      border-radius: 16px;
     }
 
     .status.error {
@@ -241,118 +251,120 @@
     </section>
 
     <section class="card" id="respondentSection">
-      <h2>Macluumaadka Ka-qaybgalaha</h2>
+      <h2 id="sectionTitle">Macluumaadka Ka-qaybgalaha</h2>
 
-      <div class="warning">
+      <div class="warning" id="researchNotice">
         Title: Mobile Service Experience Survey <br>
 
         Purpose of this research <br>
         This survey is part of a thesis study at Jamhuriya University. The goal is to understand common problems users experience with mobile operators – such as network, internet, mobile money, billing, or SIM card issues – and to train a computer system to automatically recognise and classify these complaints from text.
       </div>
 
-      <form id="surveyForm">
-        <div class="grid">
-          <div>
-            <label for="ageGroup">Da'da / Age Group</label>
-            <select id="ageGroup" name="ageGroup" required>
-              <option value="">Dooro / Select</option>
-              <option value="18-24">18-24</option>
-              <option value="25-34">25-34</option>
-              <option value="35-44">35-44</option>
-              <option value="45+">45+</option>
-              <option value="Prefer not to say">Prefer not to say</option>
-            </select>
+      <div id="surveyContainer">
+        <form id="surveyForm">
+          <div class="grid">
+            <div>
+              <label for="ageGroup">Da'da / Age Group</label>
+              <select id="ageGroup" name="ageGroup" required>
+                <option value="">Dooro / Select</option>
+                <option value="18-24">18-24</option>
+                <option value="25-34">25-34</option>
+                <option value="35-44">35-44</option>
+                <option value="45+">45+</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="region">Gobolka / Region</label>
+              <select id="region" name="region" required>
+                <option value="">Dooro Gobolka / Select Region</option>
+                <option value="Banaadir">Banaadir</option>
+                <option value="Awdal">Awdal</option>
+                <option value="Bakool">Bakool</option>
+                <option value="Bay">Bay</option>
+                <option value="Bari">Bari</option>
+                <option value="Galgaduud">Galgaduud</option>
+                <option value="Gedo">Gedo</option>
+                <option value="Hiiraan">Hiiraan</option>
+                <option value="Jubbada Dhexe">Jubbada Dhexe</option>
+                <option value="Jubbada Hoose">Jubbada Hoose</option>
+                <option value="Mudug">Mudug</option>
+                <option value="Nugaal">Nugaal</option>
+                <option value="Sanaag">Sanaag</option>
+                <option value="Shabeellaha Dhexe">Shabeellaha Dhexe</option>
+                <option value="Shabeellaha Hoose">Shabeellaha Hoose</option>
+                <option value="Sool">Sool</option>
+                <option value="Togdheer">Togdheer</option>
+                <option value="Waqooyi Galbeed">Waqooyi Galbeed</option>
+                <option value="Other">Other / Kale</option>
+              </select>
+            </div>
           </div>
 
-          <div>
-            <label for="region">Gobolka / Region</label>
-            <select id="region" name="region" required>
-              <option value="">Dooro Gobolka / Select Region</option>
-              <option value="Banaadir">Banaadir</option>
-              <option value="Awdal">Awdal</option>
-              <option value="Bakool">Bakool</option>
-              <option value="Bay">Bay</option>
-              <option value="Bari">Bari</option>
-              <option value="Galgaduud">Galgaduud</option>
-              <option value="Gedo">Gedo</option>
-              <option value="Hiiraan">Hiiraan</option>
-              <option value="Jubbada Dhexe">Jubbada Dhexe</option>
-              <option value="Jubbada Hoose">Jubbada Hoose</option>
-              <option value="Mudug">Mudug</option>
-              <option value="Nugaal">Nugaal</option>
-              <option value="Sanaag">Sanaag</option>
-              <option value="Shabeellaha Dhexe">Shabeellaha Dhexe</option>
-              <option value="Shabeellaha Hoose">Shabeellaha Hoose</option>
-              <option value="Sool">Sool</option>
-              <option value="Togdheer">Togdheer</option>
-              <option value="Waqooyi Galbeed">Waqooyi Galbeed</option>
-              <option value="Other">Other / Kale</option>
-            </select>
+          <p class="hint">Hoos ka dooro shirkadda telecom-ka ee la xiriirta cabasho kasta.</p>
+
+          <div class="category-box">
+            <span class="badge">Required</span>
+            <h3>1. Network / Shabakad</h3>
+            <p class="hint">Cabasho ku saabsan signal la'aan, wicitaan go'a, coverage liidata, ama SMS dhibaato leh.</p>
+            <label for="networkCompany">Shirkadda Telecom-ka</label>
+            <select id="networkCompany" name="networkCompany" required></select>
+            <label for="networkSentence">Jumlad cabasho ah</label>
+            <textarea id="networkSentence" name="networkSentence" required placeholder="Tusaale: Shabakadda xaafaddeenna mar walba way go'daa."></textarea>
           </div>
-        </div>
 
-        <p class="hint">Hoos ka dooro shirkadda telecom-ka ee la xiriirta cabasho kasta.</p>
+          <div class="category-box">
+            <span class="badge">Required</span>
+            <h3>2. Internet</h3>
+            <p class="hint">Cabasho ku saabsan internet gaabis ah, data aan shaqayn, bundle dhibaato leh, ama 3G/4G/5G cilad.</p>
+            <label for="internetCompany">Shirkadda Telecom-ka</label>
+            <select id="internetCompany" name="internetCompany" required></select>
+            <label for="internetSentence">Jumlad cabasho ah</label>
+            <textarea id="internetSentence" name="internetSentence" required placeholder="Tusaale: Internet-ka aad buu u gaabiyaa habeenkii."></textarea>
+          </div>
 
-        <div class="category-box">
-          <span class="badge">Required</span>
-          <h3>1. Network / Shabakad</h3>
-          <p class="hint">Cabasho ku saabsan signal la'aan, wicitaan go'a, coverage liidata, ama SMS dhibaato leh.</p>
-          <label for="networkCompany">Shirkadda Telecom-ka</label>
-          <select id="networkCompany" name="networkCompany" required></select>
-          <label for="networkSentence">Jumlad cabasho ah</label>
-          <textarea id="networkSentence" name="networkSentence" required placeholder="Tusaale: Shabakadda xaafaddeenna mar walba way go'daa."></textarea>
-        </div>
+          <div class="category-box">
+            <span class="badge">Required</span>
+            <h3>3. Mobile Money</h3>
+            <p class="hint">Cabasho ku saabsan lacag dirid, lacag helid, transaction fashilmay, ama mobile wallet cilad.</p>
+            <label for="mobileMoneyCompany">Shirkadda Telecom-ka</label>
+            <select id="mobileMoneyCompany" name="mobileMoneyCompany" required></select>
+            <label for="mobileMoneySentence">Jumlad cabasho ah</label>
+            <textarea id="mobileMoneySentence" name="mobileMoneySentence" required placeholder="Tusaale: Lacagtii aan diray lama helin."></textarea>
+          </div>
 
-        <div class="category-box">
-          <span class="badge">Required</span>
-          <h3>2. Internet</h3>
-          <p class="hint">Cabasho ku saabsan internet gaabis ah, data aan shaqayn, bundle dhibaato leh, ama 3G/4G/5G cilad.</p>
-          <label for="internetCompany">Shirkadda Telecom-ka</label>
-          <select id="internetCompany" name="internetCompany" required></select>
-          <label for="internetSentence">Jumlad cabasho ah</label>
-          <textarea id="internetSentence" name="internetSentence" required placeholder="Tusaale: Internet-ka aad buu u gaabiyaa habeenkii."></textarea>
-        </div>
+          <div class="category-box">
+            <span class="badge">Required</span>
+            <h3>4. Billing / Lacag jarid</h3>
+            <p class="hint">Cabasho ku saabsan lacag si khaldan loo jaray, balance lumay, fee aan la fahmin, ama xirmo aan furmin.</p>
+            <label for="billingCompany">Shirkadda Telecom-ka</label>
+            <select id="billingCompany" name="billingCompany" required></select>
+            <label for="billingSentence">Jumlad cabasho ah</label>
+            <textarea id="billingSentence" name="billingSentence" required placeholder="Tusaale: Balance-kayga waa la iga jaray anigoon adeeg isticmaalin."></textarea>
+          </div>
 
-        <div class="category-box">
-          <span class="badge">Required</span>
-          <h3>3. Mobile Money</h3>
-          <p class="hint">Cabasho ku saabsan lacag dirid, lacag helid, transaction fashilmay, ama mobile wallet cilad.</p>
-          <label for="mobileMoneyCompany">Shirkadda Telecom-ka</label>
-          <select id="mobileMoneyCompany" name="mobileMoneyCompany" required></select>
-          <label for="mobileMoneySentence">Jumlad cabasho ah</label>
-          <textarea id="mobileMoneySentence" name="mobileMoneySentence" required placeholder="Tusaale: Lacagtii aan diray lama helin."></textarea>
-        </div>
+          <div class="category-box">
+            <span class="badge">Required</span>
+            <h3>5. SIM Card Issue</h3>
+            <p class="hint">Cabasho ku saabsan SIM xiran, SIM aan shaqayn, diiwaangelin, replacement, activation, PIN ama PUK.</p>
+            <label for="simCardCompany">Shirkadda Telecom-ka</label>
+            <select id="simCardCompany" name="simCardCompany" required></select>
+            <label for="simCardSentence">Jumlad cabasho ah</label>
+            <textarea id="simCardSentence" name="simCardSentence" required placeholder="Tusaale: SIM-kayga waa la iga xiray mana garanayo sababta."></textarea>
+          </div>
 
-        <div class="category-box">
-          <span class="badge">Required</span>
-          <h3>4. Billing / Lacag jarid</h3>
-          <p class="hint">Cabasho ku saabsan lacag si khaldan loo jaray, balance lumay, fee aan la fahmin, ama xirmo aan furmin.</p>
-          <label for="billingCompany">Shirkadda Telecom-ka</label>
-          <select id="billingCompany" name="billingCompany" required></select>
-          <label for="billingSentence">Jumlad cabasho ah</label>
-          <textarea id="billingSentence" name="billingSentence" required placeholder="Tusaale: Balance-kayga waa la iga jaray anigoon adeeg isticmaalin."></textarea>
-        </div>
+          <div class="warning">
+            Your data will be used for academic research purposes only.
+          </div>
 
-        <div class="category-box">
-          <span class="badge">Required</span>
-          <h3>5. SIM Card Issue</h3>
-          <p class="hint">Cabasho ku saabsan SIM xiran, SIM aan shaqayn, diiwaangelin, replacement, activation, PIN ama PUK.</p>
-          <label for="simCardCompany">Shirkadda Telecom-ka</label>
-          <select id="simCardCompany" name="simCardCompany" required></select>
-          <label for="simCardSentence">Jumlad cabasho ah</label>
-          <textarea id="simCardSentence" name="simCardSentence" required placeholder="Tusaale: SIM-kayga waa la iga xiray mana garanayo sababta."></textarea>
-        </div>
-
-        <div class="warning">
-          Your data will be used for academic research purposes only.
-        </div>
-
-        <div class="actions">
-          <button type="submit" class="btn-primary">Submit Complaint Sentences</button>
-        </div>
-
+          <div class="actions">
+            <button type="submit" id="submitBtn" class="btn-primary">Submit Complaint Sentences</button>
+          </div>
+        </form>
+        
         <div id="status" class="status"></div>
-      </form>
+      </div>
     </section>
 
     <section class="card admin-only" id="adminLoginSection">
@@ -386,7 +398,6 @@
     const ADMIN_PASSCODE = "change-this-passcode";
     const STORAGE_KEY = "somali_telecom_complaint_dataset_responses";
 
-    // Added "Other" explicitly to dynamic configurations
     const companyOptions = ["Hormuud", "Somtel", "Telesom", "Golis", "Somnet", "Amtel", "Other"];
 
     const categoryFields = [
@@ -397,9 +408,11 @@
       { field: "simCardSentence", companyField: "simCardCompany", complaintClass: "SIM_Card_Issue" }
     ];
 
-    // STRAY BACKTICK FIXED BELOW
     const form = document.getElementById("surveyForm");
+    const submitBtn = document.getElementById("submitBtn");
     const statusBox = document.getElementById("status");
+    const sectionTitle = document.getElementById("sectionTitle");
+    const researchNotice = document.getElementById("researchNotice");
     const respondentSection = document.getElementById("respondentSection");
     const adminLoginSection = document.getElementById("adminLoginSection");
     const adminPanelSection = document.getElementById("adminPanelSection");
@@ -449,28 +462,43 @@
         return;
       }
 
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Gudbinaysaa... / Submitting...";
+
       saveLocalRecords(records);
 
       if (GOOGLE_APPS_SCRIPT_URL.trim() !== "") {
         try {
-          for (const record of records) {
-            await fetch(GOOGLE_APPS_SCRIPT_URL, {
+          // HAGAAGTA DEGDEG-AH:
+          // Waxaan wada direynaa 5-ta requests isku mar (Parallel execution) halkii uu mid mid u sugi lahaa
+          const promises = records.map(record => 
+            fetch(GOOGLE_APPS_SCRIPT_URL, {
               method: "POST",
               mode: "no-cors",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(record)
-            });
-          }
-          showStatus(statusBox, "Mahadsanid! 5-ta jumladood ee cabashada waa la gudbiyay.", "success");
-          form.reset();
-          populateCompanyDropdowns();
+            })
+          );
+
+          await Promise.all(promises);
+          
+          form.style.display = "none";
+          if(researchNotice) researchNotice.style.display = "none";
+          if(sectionTitle) sectionTitle.textContent = "Gudbin Guul Leh!";
+          
+          showStatus(statusBox, "Mahadsanid! Xogtaada si guul leh ayaa loo qabtay, waad ku mahadsantahay ka qaybqaadashadaada.", "success");
+          
         } catch (error) {
           showStatus(statusBox, "Cilad ayaa dhacday. Fadlan mar kale isku day.", "error");
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Submit Complaint Sentences";
         }
       } else {
-        showStatus(statusBox, "Mahadsanid! Jawaabahaaga waa la qabtay.", "success");
-        form.reset();
-        populateCompanyDropdowns();
+        form.style.display = "none";
+        if(researchNotice) researchNotice.style.display = "none";
+        if(sectionTitle) sectionTitle.textContent = "Gudbin Guul Leh!";
+        
+        showStatus(statusBox, "Mahadsanid! Xogtaada si guul leh ayaa loo qabtay, waad ku mahadsantahay ka qaybqaadashadaada.", "success");
       }
     });
 
